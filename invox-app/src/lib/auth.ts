@@ -18,7 +18,7 @@ function b64urlEncode(data: ArrayBuffer | string): string {
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
 }
 
-function b64urlDecode(str: string): Uint8Array {
+function b64urlDecode(str: string): Uint8Array<ArrayBuffer> {
   const base64 = str.replace(/-/g, "+").replace(/_/g, "/");
   const binary = atob(base64);
   return new Uint8Array([...binary].map((c) => c.charCodeAt(0)));
