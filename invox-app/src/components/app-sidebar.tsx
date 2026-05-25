@@ -69,21 +69,19 @@ export function AppSidebar() {
       {/* Account */}
       <div className="px-3 py-2.5 border-b border-white/6 relative z-10">
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-colors group">
-              <Avatar className="w-7 h-7 flex-shrink-0">
-                <AvatarFallback className="bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-[10px] font-bold">
-                  {initials}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1 text-left min-w-0">
-                <p className="text-[12.5px] font-semibold truncate leading-tight">{displayName}</p>
-                <p className="text-[10px] text-zinc-500 mt-0.5">
-                  <span className="bg-white/8 px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase">{planLabel}</span>
-                </p>
-              </div>
-              <ChevronDown className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0 group-hover:text-zinc-400 transition-colors" />
-            </button>
+          <DropdownMenuTrigger className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-colors group">
+            <Avatar className="w-7 h-7 flex-shrink-0">
+              <AvatarFallback className="bg-gradient-to-br from-blue-600 to-cyan-500 text-white text-[10px] font-bold">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex-1 text-left min-w-0">
+              <p className="text-[12.5px] font-semibold truncate leading-tight">{displayName}</p>
+              <p className="text-[10px] text-zinc-500 mt-0.5">
+                <span className="bg-white/8 px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase">{planLabel}</span>
+              </p>
+            </div>
+            <ChevronDown className="w-3.5 h-3.5 text-zinc-600 flex-shrink-0 group-hover:text-zinc-400 transition-colors" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="start" className="w-48 bg-zinc-950 border-white/10">
             <DropdownMenuItem className="gap-2 text-[12.5px] text-zinc-300 hover:text-white focus:text-white focus:bg-white/5">
