@@ -2,11 +2,8 @@
 
 import {
   MessageSquare, TrendingUp, Users, Zap,
-  CheckCircle2, ChevronRight, ArrowRight,
-  ArrowUpRight, Plus,
+  ChevronRight, ArrowRight, Plus,
 } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { InstagramIcon } from "@/components/icons/instagram";
 import { NoirBg } from "@/components/noir-bg";
 import { useAuth } from "@/contexts/auth-context";
 import Link from "next/link";
@@ -23,29 +20,11 @@ const QUICK_ACTIONS = [
   { title: "Responda todas as suas DMs automaticamente", popular: false },
 ];
 
-function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .slice(0, 2)
-    .map((w) => w[0]?.toUpperCase() ?? "")
-    .join("");
-}
-
-function PlanBadge({ plan }: { plan: string }) {
-  const labels: Record<string, string> = { free: "FREE", pro: "PRO", business: "BUSINESS" };
-  return (
-    <span className="bg-white/8 px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider uppercase">
-      {labels[plan] ?? plan.toUpperCase()}
-    </span>
-  );
-}
-
 export default function DashboardPage() {
   const { user, loading } = useAuth();
 
   const name = loading ? "" : (user?.name ?? "Usuário");
   const firstName = name.split(" ")[0];
-  const initials = name ? getInitials(name) : "U";
 
   // Stats are always zero until backend data is wired
   const stats = [

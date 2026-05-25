@@ -11,8 +11,7 @@ import type { DBUser } from "@/types/auth";
 // Uses globalThis so data survives hot-module reloads in Next.js dev server.
 
 declare global {
-  // eslint-disable-next-line no-var
-  var __invoxDevUsers: Map<string, DBUser> | undefined;
+  var __invoxDevUsers: Map<string, DBUser> | undefined; // eslint-disable-line no-var
 }
 
 const devStore: Map<string, DBUser> = globalThis.__invoxDevUsers ?? new Map();

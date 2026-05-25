@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Search, Plus, Filter, MoreHorizontal,
   Users, UserCheck, UserPlus, TrendingUp,
-  ChevronDown, Tag, Calendar, ArrowUpRight,
+  ChevronDown, Calendar, ArrowUpRight,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { InstagramIcon } from "@/components/icons/instagram";

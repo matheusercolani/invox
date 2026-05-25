@@ -42,8 +42,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    refresh();
-  }, [refresh]);
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then((data) => { setUser(data.user ?? null); setLoading(false); })
+      .catch(() => { setUser(null); setLoading(false); });
+  }, []);
 
   const logout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });

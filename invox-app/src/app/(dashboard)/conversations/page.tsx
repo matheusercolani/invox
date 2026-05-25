@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import {
-  Search, CheckCheck, Clock, Filter,
+  Search, CheckCheck,
   Send, Paperclip, Smile, MoreHorizontal,
-  Zap, Tag, ChevronDown, MessageSquare,
+  Zap, Tag,
 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { InstagramIcon } from "@/components/icons/instagram";

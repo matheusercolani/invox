@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import {
-  CheckCircle2, AlertCircle, Plus, Trash2,
-  Bell, Shield, Link2, Key, ChevronRight,
+  CheckCircle2, AlertCircle, Plus,
+  Bell, Shield, Key, ChevronRight,
   RefreshCw, ExternalLink, Copy, Eye, EyeOff,
 } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/instagram";

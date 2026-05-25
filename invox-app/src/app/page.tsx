@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  ArrowRight, Check, Zap, MessageSquare, Users, TrendingUp,
-  ChevronRight, Shield, Clock,
+  ArrowRight, Check, Zap, Users, TrendingUp,
+  ChevronRight,
 } from "lucide-react";
 import { NoirBg } from "@/components/noir-bg";
 import { InstagramIcon } from "@/components/icons/instagram";
@@ -342,7 +342,7 @@ export default function LandingPage() {
               Como funciona
             </p>
             <div className="grid md:grid-cols-3 gap-8">
-              {steps.map((step, i) => (
+              {steps.map((step) => (
                 <div key={step.number}>
                   <div className="flex items-center gap-2 mb-3">
                     <span
