@@ -24,7 +24,7 @@ function b64urlDecode(str: string): Uint8Array {
   return new Uint8Array([...binary].map((c) => c.charCodeAt(0)));
 }
 
-function hexToUint8(hex: string): Uint8Array {
+function hexToUint8(hex: string): Uint8Array<ArrayBuffer> {
   return new Uint8Array(hex.match(/.{2}/g)!.map((b) => parseInt(b, 16)));
 }
 
@@ -48,7 +48,8 @@ async function getHMACKey(secret: string): Promise<CryptoKey> {
 
 export async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();
-  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const salt = new Uint8Array(16);
+  crypto.getRandomValues(salt);
 
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
