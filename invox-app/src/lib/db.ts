@@ -21,10 +21,19 @@ globalThis.__invoxDevUsers = devStore;
 // getRequestContext() throws outside Cloudflare — caught below.
 import { getRequestContext } from "@cloudflare/next-on-pages";
 
-function getD1(): D1Database | null {
+interface D1PreparedStatement {
+  bind(...values: unknown[]): D1PreparedStatement;
+  first<T = unknown>(): Promise<T | null>;
+  run(): Promise<unknown>;
+}
+interface D1Db {
+  prepare(query: string): D1PreparedStatement;
+}
+
+function getD1(): D1Db | null {
   try {
     const { env } = getRequestContext();
-    return (env as { DB?: D1Database }).DB ?? null;
+    return (env as { DB?: D1Db }).DB ?? null;
   } catch {
     return null;
   }
