@@ -1,0 +1,4 @@
+.claude/
+Skills/
+*.env
+*.env.local
