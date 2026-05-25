@@ -1,0 +1,19 @@
+name = "invox-app"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Apply this to Cloudflare Pages builds
+pages_build_output_dir = ".vercel/output/static"
+
+# ── D1 Database ──
+# 1. Create via Cloudflare dashboard → D1 → Create database → name: "invox-db"
+# 2. Run:  npx wrangler d1 migrations apply invox-db --remote
+# 3. Paste the generated database_id below
+
+[[d1_databases]]
+binding = "DB"
+database_name = "invox-db"
+database_id = "beb00c48-1862-46f1-88e3-1cec2c80cc70"
+
+# ── Environment variables (set via Cloudflare dashboard → Pages → Settings → Env vars) ──
+# JWT_SECRET = "your-strong-random-secret-min-32-chars"
