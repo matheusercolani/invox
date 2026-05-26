@@ -175,3 +175,66 @@
   body { @apply bg-background text-foreground; }
   html { @apply font-sans; }
 }
+
+/* ─── Light Theme ─── */
+html.light {
+  --background:            #f8fafc;
+  --foreground:            #0f172a;
+  --card:                  rgba(0,0,0,0.02);
+  --card-foreground:       #0f172a;
+  --popover:               #ffffff;
+  --popover-foreground:    #0f172a;
+  --secondary:             rgba(0,0,0,0.04);
+  --secondary-foreground:  #0f172a;
+  --muted:                 rgba(0,0,0,0.04);
+  --muted-foreground:      #64748b;
+  --border:                rgba(0,0,0,0.10);
+  --input:                 rgba(0,0,0,0.06);
+  --sidebar:               #f1f5f9;
+  --sidebar-foreground:    #1e293b;
+  --sidebar-accent:        rgba(0,0,0,0.05);
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border:        rgba(0,0,0,0.08);
+}
+
+/* Text overrides */
+html.light .text-white        { color: #0f172a !important; }
+html.light .text-zinc-200     { color: #1e293b !important; }
+html.light .text-zinc-300     { color: #334155 !important; }
+html.light .text-zinc-400     { color: #475569 !important; }
+html.light .text-zinc-500     { color: #64748b !important; }
+html.light .text-zinc-600     { color: #94a3b8 !important; }
+html.light .text-zinc-700     { color: #cbd5e1 !important; }
+
+/* Background overrides */
+html.light .bg-\[\#070a14\]            { background-color: #ffffff !important; }
+html.light .bg-zinc-950                { background-color: #f8fafc !important; }
+html.light .bg-white\/\[0\.02\]       { background-color: rgba(0,0,0,0.02) !important; }
+html.light .bg-white\/\[0\.03\]       { background-color: rgba(0,0,0,0.02) !important; }
+html.light .bg-white\/3               { background-color: rgba(0,0,0,0.02) !important; }
+html.light .bg-white\/4               { background-color: rgba(0,0,0,0.03) !important; }
+html.light .bg-white\/5               { background-color: rgba(0,0,0,0.04) !important; }
+html.light .bg-white\/6               { background-color: rgba(0,0,0,0.05) !important; }
+html.light .bg-white\/8               { background-color: rgba(0,0,0,0.06) !important; }
+html.light .bg-white\/\[0\.08\]       { background-color: rgba(0,0,0,0.06) !important; }
+html.light .bg-white\/10              { background-color: rgba(0,0,0,0.07) !important; }
+
+/* Border overrides */
+html.light .border-white\/5   { border-color: rgba(0,0,0,0.06) !important; }
+html.light .border-white\/6   { border-color: rgba(0,0,0,0.08) !important; }
+html.light .border-white\/8   { border-color: rgba(0,0,0,0.10) !important; }
+html.light .border-white\/10  { border-color: rgba(0,0,0,0.12) !important; }
+
+/* Sticky/glass header bars */
+html.light [class*="bg-\\[\\#070a14\\]"],
+html.light [style*="rgba(8,4,15"] { background: rgba(248,250,252,0.85) !important; }
+
+/* Input fields */
+html.light input,
+html.light textarea {
+  color: #0f172a !important;
+}
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: #94a3b8 !important;
+}

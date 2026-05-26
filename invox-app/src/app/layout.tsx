@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Manrope } from "next/font/google";
+import { ThemeProvider } from "@/contexts/theme-context";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -22,8 +23,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${dmSans.variable} ${manrope.variable} h-full`}>
+      <head>
+        {/* Prevent flash of wrong theme */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var t=localStorage.getItem('invox-theme');if(t==='light')document.documentElement.classList.add('light');})();`,
+          }}
+        />
+      </head>
       <body className="min-h-full bg-background text-foreground antialiased">
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

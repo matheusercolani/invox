@@ -25,6 +25,8 @@ import {
 import { InstagramIcon } from "@/components/icons/instagram";
 import { WhatsAppIcon } from "@/components/icons/whatsapp";
 import { useAuth } from "@/contexts/auth-context";
+import { useTheme } from "@/contexts/theme-context";
+import { Sun, Moon } from "lucide-react";
 
 const navMain = [
   { href: "/dashboard", label: "Inicial", icon: LayoutDashboard },
@@ -49,6 +51,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
 
+  const { theme, toggleTheme } = useTheme();
   const displayName = user?.name ?? "Carregando...";
   const initials = user?.name ? getInitials(user.name) : "?";
   const planLabel = PLAN_LABELS[user?.plan ?? "free"] ?? "FREE";
@@ -135,6 +138,16 @@ export function AppSidebar() {
         <button className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] text-zinc-600 hover:text-zinc-300 hover:bg-white/5 transition-all">
           <PanelLeftClose className="w-4 h-4 flex-shrink-0" />
           <span>Recolher</span>
+        </button>
+
+        <button
+          onClick={toggleTheme}
+          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[13px] text-zinc-600 hover:text-zinc-300 hover:bg-white/5 transition-all"
+        >
+          {theme === "dark"
+            ? <Sun className="w-4 h-4 flex-shrink-0" />
+            : <Moon className="w-4 h-4 flex-shrink-0" />}
+          <span>{theme === "dark" ? "Modo claro" : "Modo escuro"}</span>
         </button>
 
         {/* Canais conectados */}

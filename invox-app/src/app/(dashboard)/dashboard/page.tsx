@@ -47,7 +47,7 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="relative z-10 px-8 py-7 max-w-5xl">
+      <div className="relative z-10 px-8 py-7">
         {/* Welcome */}
         <div className="mb-8 animate-fade-up">
           <h2
