@@ -38,8 +38,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   }
 
-  // Always respond 200 quickly — process async
-  processWebhook(payload).catch(console.error);
+  await processWebhook(payload);
   return NextResponse.json({ ok: true });
 }
 
