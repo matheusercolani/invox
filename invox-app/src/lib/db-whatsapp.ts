@@ -172,11 +172,27 @@ export async function getWaMessages(
   return res.results;
 }
 
-export async function updateWaMessageStatus(messageId: string, status: string): Promise<void> {
+export async function updateWaConversationLastMessage(
+  conversationId: string,
+  userId: string,
+  lastMessageText: string,
+  lastMessageAt: number
+): Promise<void> {
   const d1 = getD1();
   if (!d1) return;
   await d1
-    .prepare("UPDATE wa_messages SET status = ? WHERE id = ?")
-    .bind(status, messageId)
+    .prepare(
+      "UPDATE wa_conversations SET last_message_text = ?, last_message_at = ? WHERE id = ? AND user_id = ?"
+    )
+    .bind(lastMessageText, lastMessageAt, conversationId, userId)
+    .run();
+}
+
+export async function updateWaMessageStatus(messageId: string, status: string, userId: string): Promise<void> {
+  const d1 = getD1();
+  if (!d1) return;
+  await d1
+    .prepare("UPDATE wa_messages SET status = ? WHERE id = ? AND user_id = ?")
+    .bind(status, messageId, userId)
     .run();
 }

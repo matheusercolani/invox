@@ -53,7 +53,12 @@ export default function ConversationsPage() {
     const intervalId = setInterval(() => {
       fetch("/api/whatsapp/conversations")
         .then((r) => r.json())
-        .then((data) => setConversations((data as { conversations: WaConversation[] }).conversations));
+        .then((data) => {
+          const updated = (data as { conversations: WaConversation[] }).conversations;
+          setConversations(updated);
+          // Keep active state in sync with polled data
+          setActive((prev) => prev ? (updated.find((c) => c.id === prev.id) ?? prev) : null);
+        });
       if (active) {
         fetch(`/api/whatsapp/messages?conversation_id=${active.id}`)
           .then((r) => r.json())
@@ -180,7 +185,13 @@ export default function ConversationsPage() {
             filtered.map((conv) => (
               <button
                 key={conv.id}
-                onClick={() => setActive(conv)}
+                onClick={() => {
+                  setActive(conv);
+                  // Clear unread badge immediately in local state
+                  setConversations((prev) =>
+                    prev.map((c) => c.id === conv.id ? { ...c, unread_count: 0 } : c)
+                  );
+                }}
                 className={cn(
                   "w-full flex items-start gap-3 px-4 py-3.5 border-b border-white/5 hover:bg-white/[0.03] transition-colors text-left",
                   active?.id === conv.id && "bg-green-500/8 border-l-2 border-l-green-500"

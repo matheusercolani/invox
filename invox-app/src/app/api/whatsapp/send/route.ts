@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyJWT, COOKIE_NAME } from "@/lib/auth";
 import { decryptToken, sendTextMessage } from "@/lib/whatsapp";
-import { findWaConnectionByUserId, insertWaMessage, upsertWaConversation } from "@/lib/db-whatsapp";
+import { findWaConnectionByUserId, insertWaMessage, upsertWaConversation, updateWaConversationLastMessage } from "@/lib/db-whatsapp";
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
@@ -47,6 +47,10 @@ export async function POST(request: Request) {
     lastMessageText: text.trim(),
     lastMessageAt: now,
   });
+
+  if (conversation_id) {
+    await updateWaConversationLastMessage(conversation_id, payload.sub!, text.trim(), now);
+  }
 
   await insertWaMessage({
     id: result.message_id ?? crypto.randomUUID(),

@@ -102,7 +102,7 @@ async function processWebhook(payload: Record<string, unknown>) {
       const statuses = (value.statuses as unknown[]) ?? [];
       for (const raw of statuses) {
         const s = raw as Record<string, string>;
-        await updateWaMessageStatus(s.id, s.status);
+        await updateWaMessageStatus(s.id, s.status, connection.user_id);
       }
     }
   }
