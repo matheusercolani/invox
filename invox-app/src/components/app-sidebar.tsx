@@ -99,7 +99,7 @@ export function AppSidebar() {
 
       {/* Nav */}
       <nav className="flex-1 px-2.5 py-2.5 flex flex-col gap-0.5 overflow-y-auto relative z-10">
-        {navMain.map(({ href, label, icon: Icon, badge }) => {
+        {navMain.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || (href !== "/dashboard" && href !== "/" && pathname.startsWith(href)) || (href === "/dashboard" && pathname === "/dashboard");
           return (
             <Link
@@ -114,11 +114,6 @@ export function AppSidebar() {
             >
               <Icon className={cn("w-4 h-4 flex-shrink-0", active ? "text-blue-400" : "text-zinc-600")} />
               <span className="flex-1">{label}</span>
-              {badge && (
-                <span className="h-[18px] min-w-[18px] px-1 text-[9px] bg-blue-500/20 text-blue-300 font-bold rounded-full flex items-center justify-center">
-                  {badge}
-                </span>
-              )}
             </Link>
           );
         })}
