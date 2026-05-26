@@ -30,7 +30,7 @@ const navMain = [
   { href: "/dashboard", label: "Inicial", icon: LayoutDashboard },
   { href: "/contacts", label: "Contatos", icon: Users },
   { href: "/flows", label: "Automação", icon: GitBranch },
-  { href: "/conversations", label: "Caixa de Entrada", icon: MessageSquare, badge: "12" },
+  { href: "/conversations", label: "Caixa de Entrada", icon: MessageSquare },
   { href: "/settings", label: "Configurações", icon: Settings },
 ];
 
