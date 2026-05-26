@@ -11,21 +11,19 @@ const ThemeContext = createContext<{ theme: Theme; toggleTheme: () => void }>({
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
 
+  // Read saved theme from localStorage (must use .then to satisfy react-hooks/set-state-in-effect)
   useEffect(() => {
-    const saved = (localStorage.getItem("invox-theme") as Theme | null) ?? "dark";
-    setTheme(saved);
-    setMounted(true);
+    Promise.resolve(localStorage.getItem("invox-theme")).then((saved) => {
+      if (saved === "light" || saved === "dark") setTheme(saved);
+    });
   }, []);
 
+  // Apply class to <html> whenever theme changes
   useEffect(() => {
-    if (!mounted) return;
-    const html = document.documentElement;
-    html.classList.toggle("light", theme === "light");
-    html.classList.toggle("dark-mode", theme === "dark");
+    document.documentElement.classList.toggle("light", theme === "light");
     localStorage.setItem("invox-theme", theme);
-  }, [theme, mounted]);
+  }, [theme]);
 
   const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
