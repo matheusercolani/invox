@@ -100,3 +100,28 @@ export async function emailExists(email: string): Promise<boolean> {
   const user = await findUserByEmail(email);
   return user !== null;
 }
+
+export async function updateUser(
+  id: string,
+  fields: { name?: string; email?: string; password_hash?: string }
+): Promise<void> {
+  const d1 = getD1();
+  const sets: string[] = [];
+  const values: unknown[] = [];
+
+  if (fields.name !== undefined)          { sets.push("name = ?");          values.push(fields.name); }
+  if (fields.email !== undefined)         { sets.push("email = ?");         values.push(fields.email); }
+  if (fields.password_hash !== undefined) { sets.push("password_hash = ?"); values.push(fields.password_hash); }
+
+  if (sets.length === 0) return;
+  values.push(id);
+
+  if (d1) {
+    await d1.prepare(`UPDATE users SET ${sets.join(", ")} WHERE id = ?`).bind(...values).run();
+    return;
+  }
+
+  // Development fallback
+  const user = devStore.get(id);
+  if (user) devStore.set(id, { ...user, ...fields });
+}
