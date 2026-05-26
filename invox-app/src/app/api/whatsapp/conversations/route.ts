@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { verifyJWT, COOKIE_NAME } from "@/lib/auth";
 import { getWaConversations, markConversationRead } from "@/lib/db-whatsapp";
 
-export async function GET(request: Request) {
+export async function GET() {
   const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   if (!token) return NextResponse.json({ error: "Não autenticado" }, { status: 401 });

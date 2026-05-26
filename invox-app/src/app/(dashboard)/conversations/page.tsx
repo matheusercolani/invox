@@ -73,14 +73,16 @@ export default function ConversationsPage() {
   // Load messages when conversation changes
   useEffect(() => {
     if (!active) return;
-    fetchMessages(active.id);
-    // Mark as read
+    const id = active.id;
+    fetch(`/api/whatsapp/messages?conversation_id=${id}`)
+      .then((r) => r.json())
+      .then((data) => setMessages((data as { messages: WaMessage[] }).messages));
     fetch("/api/whatsapp/conversations", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ conversation_id: active.id }),
+      body: JSON.stringify({ conversation_id: id }),
     });
-  }, [active, fetchMessages]);
+  }, [active]);
 
   // Scroll to bottom when messages update
   useEffect(() => {
