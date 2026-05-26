@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Search, CheckCheck, Send, Paperclip, Smile,
   MoreHorizontal, Zap, RefreshCw,
@@ -41,34 +41,27 @@ export default function ConversationsPage() {
   const [loading, setLoading] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const fetchConversations = useCallback(async () => {
-    const res = await fetch("/api/whatsapp/conversations");
-    if (!res.ok) return;
-    const data = await res.json() as { conversations: WaConversation[] };
-    setConversations(data.conversations);
-    setLoading(false);
-  }, []);
-
-  const fetchMessages = useCallback(async (conversationId: string) => {
-    const res = await fetch(`/api/whatsapp/messages?conversation_id=${conversationId}`);
-    if (!res.ok) return;
-    const data = await res.json() as { messages: WaMessage[] };
-    setMessages(data.messages);
-  }, []);
-
   // Initial load
   useEffect(() => {
-    fetchConversations();
-  }, [fetchConversations]);
+    fetch("/api/whatsapp/conversations")
+      .then((r) => r.json())
+      .then((data) => { setConversations((data as { conversations: WaConversation[] }).conversations); setLoading(false); });
+  }, []);
 
   // Polling
   useEffect(() => {
-    const id = setInterval(() => {
-      fetchConversations();
-      if (active) fetchMessages(active.id);
+    const intervalId = setInterval(() => {
+      fetch("/api/whatsapp/conversations")
+        .then((r) => r.json())
+        .then((data) => setConversations((data as { conversations: WaConversation[] }).conversations));
+      if (active) {
+        fetch(`/api/whatsapp/messages?conversation_id=${active.id}`)
+          .then((r) => r.json())
+          .then((data) => setMessages((data as { messages: WaMessage[] }).messages));
+      }
     }, POLL_INTERVAL);
-    return () => clearInterval(id);
-  }, [active, fetchConversations, fetchMessages]);
+    return () => clearInterval(intervalId);
+  }, [active]);
 
   // Load messages when conversation changes
   useEffect(() => {
@@ -107,8 +100,12 @@ export default function ConversationsPage() {
     });
 
     if (res.ok) {
-      await fetchMessages(active.id);
-      await fetchConversations();
+      const [msgs, convs] = await Promise.all([
+        fetch(`/api/whatsapp/messages?conversation_id=${active.id}`).then((r) => r.json()),
+        fetch("/api/whatsapp/conversations").then((r) => r.json()),
+      ]);
+      setMessages((msgs as { messages: WaMessage[] }).messages);
+      setConversations((convs as { conversations: WaConversation[] }).conversations);
     }
     setSending(false);
   };
@@ -143,7 +140,10 @@ export default function ConversationsPage() {
                 </span>
               )}
               <button
-                onClick={() => { fetchConversations(); if (active) fetchMessages(active.id); }}
+                onClick={() => {
+                  fetch("/api/whatsapp/conversations").then((r) => r.json()).then((d) => setConversations((d as { conversations: WaConversation[] }).conversations));
+                  if (active) fetch(`/api/whatsapp/messages?conversation_id=${active.id}`).then((r) => r.json()).then((d) => setMessages((d as { messages: WaMessage[] }).messages));
+                }}
                 className="w-7 h-7 rounded-lg text-zinc-600 hover:text-zinc-300 hover:bg-white/5 flex items-center justify-center transition-colors"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
